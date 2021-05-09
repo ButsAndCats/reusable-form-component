@@ -2,15 +2,18 @@ import React from "react";
 
 export type FormSchema = {
   handleSubmit: (event: React.FormEvent) => Promise<void>
-  fields: Array<{
-    label: string
-    name: string
+  fields: Array<LabelProps & {
     type: "text" | "date" | "select" | "tel" | "checkbox"
     options?: Array<{
       label: string
       value: string
     }>
-    required?: boolean
     validation?: () => boolean
   }>
+}
+
+export type LabelProps = {
+  name: string
+  label: string
+  required?: boolean
 }

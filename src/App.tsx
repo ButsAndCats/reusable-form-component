@@ -48,10 +48,12 @@ const schema: FormSchema = {
 const App = () => {
 
   return (
-    <div>
-      <Form 
-        schema={schema}
-      />
+    <div className="max-w-xl mx-auto py-4">
+      <div className="p-4 bg-white rounded-lg">
+        <Form 
+          schema={schema}
+        />
+      </div> 
     </div>
   )
 }
