@@ -6,7 +6,7 @@ import { FieldMapper } from "./FieldMapper";
 import { FormTitle } from "./FormTitle";
 import { useMulti } from "./useMulti";
 
-export const Multi: React.FC<InputSchema.Multi> = ({ label, required, name, fields, limit, prefix, buttonText }) => {
+export const Multi: React.FC<InputSchema.Multi> = ({ label, required, name, fields, limit, buttonText }) => {
   const { count, handleAddFields } = useMulti();
   return (
     <div className="border-l-4 border-gray-300 pl-4">
@@ -18,5 +18,5 @@ export const Multi: React.FC<InputSchema.Multi> = ({ label, required, name, fiel
         <Button type="button" onClick={() => handleAddFields()}>{buttonText}</Button>
       ) : null}
     </div>
-  )
-}
+  );
+};

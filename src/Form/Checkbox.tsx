@@ -8,8 +8,8 @@ import { useCheckbox } from "./useCheckbox";
 export const Checkbox: React.FC<InputSchema.Checkbox> = ({ label, name, type, required, prefix, ...props }) => {
   const {checked, handleCheckbox} = useCheckbox();
   const { errors, setErrors } = React.useContext(FormContext);
-  const prefixedName = `${prefix ? prefix : ""}${name}`
-  const error = errors?.[prefixedName]
+  const prefixedName = `${prefix ? prefix : ""}${name}`;
+  const error = errors?.[prefixedName];
 
   return (
     <>
@@ -22,11 +22,11 @@ export const Checkbox: React.FC<InputSchema.Checkbox> = ({ label, name, type, re
           aria-label={label}
           checked={checked}
           onChange={() => {
-            handleCheckbox()
+            handleCheckbox();
             if (error && setErrors) {
               setErrors((prev) => {
                 if (!prev) {
-                  return null
+                  return null;
                 }
                 delete prev[prefixedName];
                 return prev;
@@ -53,4 +53,4 @@ export const Checkbox: React.FC<InputSchema.Checkbox> = ({ label, name, type, re
 
     </>
   );
-}
+};

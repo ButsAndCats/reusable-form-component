@@ -5,13 +5,13 @@ export const useMulti = (): MultiProps => {
 
   const handleAddFields = React.useCallback(() => {
     setCount((prev) => prev + 1);
-  }, [])
+  }, []);
 
   return {
     count,
-    handleAddFields
-  }
-}
+    handleAddFields,
+  };
+};
 
 export type MultiProps = {
   count: number

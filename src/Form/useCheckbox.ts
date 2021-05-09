@@ -5,13 +5,13 @@ export const useCheckbox = (): CheckboxProps => {
 
   const handleCheckbox = React.useCallback(() => {
     setChecked((prev) => !prev);
-  }, [])
+  }, []);
 
   return {
     checked,
-    handleCheckbox
-  }
-}
+    handleCheckbox,
+  };
+};
 
 export type CheckboxProps = {
   checked: boolean

@@ -12,7 +12,7 @@ const inputMap: Record<string, (props: any) => JSX.Element> = {
   checkbox: (props) => <Checkbox {...props} />,
   select: (props) => <Select {...props} />,
   multi: (props) => <Multi {...props} />,
-}
+};
 
 export const FieldMapper: React.FC<Props> = ({ fields, prefix }) => (
   <>

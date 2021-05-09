@@ -5,8 +5,8 @@ import { InputLabel } from "./InputLabel";
 
 export const TextInput: React.FC<InputSchema.Text> = ({ label, required, name, type, prefix, blurValidation }) => {
   const { errors, setErrors } = React.useContext(FormContext);
-  const prefixedName = `${prefix ? prefix : ""}${name}`
-  const error = errors?.[prefixedName]
+  const prefixedName = `${prefix ? prefix : ""}${name}`;
+  const error = errors?.[prefixedName];
   return (
     <>
       <InputLabel label={label} required={required} name={prefixedName} />
@@ -20,7 +20,7 @@ export const TextInput: React.FC<InputSchema.Text> = ({ label, required, name, t
           if (error && setErrors) {
             setErrors((prev) => {
               if (!prev) {
-                return null
+                return null;
               }
               delete prev[prefixedName];
               return prev;
@@ -29,16 +29,16 @@ export const TextInput: React.FC<InputSchema.Text> = ({ label, required, name, t
         }}
         onBlur={(e) => {
           if (!setErrors) {
-            return
+            return;
           }
-          if (required && !Boolean(e.target.value)) {
+          if (required && !e.target.value) {
             setErrors((prev) => {
               return {
                 ...prev,
-                [prefixedName]: required
-              }
+                [prefixedName]: required,
+              };
             });
-            return
+            return;
           }
           if (blurValidation) {
             const error = blurValidation(e.target.value);
@@ -46,8 +46,8 @@ export const TextInput: React.FC<InputSchema.Text> = ({ label, required, name, t
               setErrors((prev) => {
                 return {
                   ...prev,
-                  [prefixedName]: error
-                }
+                  [prefixedName]: error,
+                };
               });
             }
           }
@@ -57,5 +57,5 @@ export const TextInput: React.FC<InputSchema.Text> = ({ label, required, name, t
         <span className="text-red-500">{error}</span>
       ) : null}
     </>
-  )
-}
+  );
+};
