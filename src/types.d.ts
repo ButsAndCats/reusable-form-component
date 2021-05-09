@@ -35,10 +35,17 @@ export namespace InputSchema {
 
   export type Checkbox = LabelProps & {
     type: "checkbox",
+    checked: {
+      title: string
+      name: string
+      fields: Array<InputSchema>
+    }
   }
 
   export type Multi = LabelProps & {
     type: "multi",
+    buttonText: string
+    limit: number
     fields: Array<InputSchema>
   }
 }

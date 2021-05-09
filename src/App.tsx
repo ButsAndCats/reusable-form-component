@@ -46,6 +46,8 @@ const schema: FormSchema = {
       type: "multi",
       label: "Contact number",
       name: "contactNumber",
+      buttonText: "Add another contact number",
+      limit: 3,
       fields: [
         {
           type: "select",
@@ -76,7 +78,23 @@ const schema: FormSchema = {
     {
       type: "checkbox",
       label: "Guardian consent",
-      name: "consent"
+      name: "consent",
+      checked: {
+        title: "Guardian",
+        name: "guardian",
+        fields: [
+          {
+            type: "text",
+            label: "Name",
+            name: "name",
+          },
+          {
+            type: "text",
+            label: "Number",
+            name: "contact",
+          },
+        ]
+      }
     }
   ]
 }
