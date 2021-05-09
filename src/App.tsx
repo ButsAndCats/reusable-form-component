@@ -9,13 +9,23 @@ const schema: FormSchema = {
       type: "text",
       label: "Full name",
       name: "name",
-      required: true,
+      /**
+       * Ensure there are only 2 names and that each name is at least 1 character
+       */
+      blurValidation: (value: string) => {
+        const names = value.split(" ");
+        if (names.length === 2 && names[0].length >= 1 && names[1].length >= 1 ) {
+          return null
+        }
+        return "Please provide a first and last name";
+      },
+      required: "Please enter your full name",
     },
     {
       type: "date",
       label: "Date of birth",
       name: "dateOfBirth",
-      required: true,
+      required: "Your date of birth is required",
     },
     {
       type: "select",
@@ -33,9 +43,35 @@ const schema: FormSchema = {
       ]
     },
     {
-      type: "text",
+      type: "multi",
       label: "Contact number",
       name: "contactNumber",
+      fields: [
+        {
+          type: "select",
+          label: "Type",
+          name: "contactType",
+          options: [
+            {
+              label: "Home",
+              value: "home",
+            },
+            {
+              label: "Work",
+              value: "work",
+            },
+            {
+              label: "Mobile",
+              value: "mobile",
+            }
+          ]
+        },
+        {
+          type: "text",
+          label: "Number",
+          name: "number",
+        },
+      ]
     },
     {
       type: "checkbox",
