@@ -1,7 +1,7 @@
 import * as React from "react";
 
-export const useCheckbox = (): MultiProps => {
-  const [checked, setChecked] = React.useState<MultiProps["checked"]>(false);
+export const useCheckbox = (): CheckboxProps => {
+  const [checked, setChecked] = React.useState<CheckboxProps["checked"]>(false);
 
   const handleCheckbox = React.useCallback(() => {
     setChecked((prev) => !prev);
@@ -13,7 +13,7 @@ export const useCheckbox = (): MultiProps => {
   }
 }
 
-export type MultiProps = {
+export type CheckboxProps = {
   checked: boolean
   handleCheckbox: () => void
 }

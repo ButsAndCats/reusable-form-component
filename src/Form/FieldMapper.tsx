@@ -14,16 +14,17 @@ const inputMap: Record<string, (props: any) => JSX.Element> = {
   multi: (props) => <Multi {...props} />,
 }
 
-export const FieldMapper: React.FC<Props> = ({ fields }) => (
+export const FieldMapper: React.FC<Props> = ({ fields, prefix }) => (
   <>
     {fields.map((props) => (
       <div className="mb-4" key={props.name}>
-        {inputMap[props.type] ? inputMap[props.type](props) : null}
+        {inputMap[props.type] ? inputMap[props.type]({ ...props, prefix }) : null}
       </div>
     ))}
   </>
-)
+);
   
 type Props = {
   fields: Array<InputSchema>
+  prefix?: string
 }

@@ -1,30 +1,55 @@
 import * as React from "react";
 import { InputSchema } from "../types";
+import { FormContext } from "./FormContext";
 import { InputLabel } from "./InputLabel";
 
-export const TextInput: React.FC<InputSchema.Text> = ({ label, required, name, type, blurValidation }) => {
-  const [error, setError] = React.useState<null | string>(null);
+export const TextInput: React.FC<InputSchema.Text> = ({ label, required, name, type, prefix, blurValidation }) => {
+  const { errors, setErrors } = React.useContext(FormContext);
+  const prefixedName = `${prefix ? prefix : ""}${name}`
+  const error = errors?.[prefixedName]
   return (
     <>
-      <InputLabel label={label} required={required} name={name}/>
+      <InputLabel label={label} required={required} name={prefixedName} />
       <input
         aria-label={label}
         className={`${error ? "border-red-500 focus:ring-red-500" : "border-blue-300 focus:ring-blue-500"} form-input w-full rounded py-3 border  px-4 text-gray-800 focus:shadow-lg focus:ring focus:outline-none`}
         type={type}
-        name={name}
-        id={name}
+        name={prefixedName}
+        id={prefixedName}
         onChange={() => {
-          if (error) {
-            setError(null);
+          if (error && setErrors) {
+            setErrors((prev) => {
+              if (!prev) {
+                return null
+              }
+              delete prev[prefixedName];
+              return prev;
+            });
           }
         }}
         onBlur={(e) => {
+          if (!setErrors) {
+            return
+          }
           if (required && !Boolean(e.target.value)) {
-            setError(required);
+            setErrors((prev) => {
+              return {
+                ...prev,
+                [prefixedName]: required
+              }
+            });
             return
           }
           if (blurValidation) {
-            setError(blurValidation(e.target.value));
+            const error = blurValidation(e.target.value);
+            if (error) {
+              setErrors((prev) => {
+                return {
+                  ...prev,
+                  [prefixedName]: error
+                }
+              });
+            }
           }
         }}
       />

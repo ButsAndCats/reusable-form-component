@@ -3,7 +3,7 @@ import { Form } from "./Form/Form"
 import { FormSchema } from "./types"
 
 const schema: FormSchema = {
-  handleSubmit: async () => { console.log("submit") },
+  handleSubmit: async (data) => { console.log(data) },
   fields: [
     {
       type: "text",
@@ -24,8 +24,20 @@ const schema: FormSchema = {
     {
       type: "date",
       label: "Date of birth",
-      name: "dateOfBirth",
+      name: "dob",
       required: "Your date of birth is required",
+      // /**
+      //  * Ensure that the user is at least 18
+      //  */
+      blurValidation: (value: string) => {
+        const todaysDate = new Date();
+        const birthday = new Date(value);
+        const testDate = new Date(birthday.getFullYear() + 18, birthday.getMonth(), birthday.getDate())
+        if (todaysDate < testDate) {
+          return "You must be at least 18 to proceed"
+        }
+        return null
+      },
     },
     {
       type: "select",
@@ -34,25 +46,25 @@ const schema: FormSchema = {
       options: [
         {
           label: "Male",
-          value: "male",
+          value: "1",
         },
         {
           label: "Female",
-          value: "female",
+          value: "2",
         }
       ]
     },
     {
       type: "multi",
       label: "Contact number",
-      name: "contactNumber",
+      name: "contact",
       buttonText: "Add another contact number",
       limit: 3,
       fields: [
         {
           type: "select",
           label: "Type",
-          name: "contactType",
+          name: "type",
           options: [
             {
               label: "Home",
@@ -78,20 +90,22 @@ const schema: FormSchema = {
     {
       type: "checkbox",
       label: "Guardian consent",
-      name: "consent",
+      required: "You must have guardian consent to proceed.",
+      name: "guardian",
       checked: {
         title: "Guardian",
-        name: "guardian",
         fields: [
           {
             type: "text",
             label: "Name",
             name: "name",
+            required: "Please provide the Guardian's full name",
           },
           {
             type: "text",
             label: "Number",
             name: "contact",
+            required: "Please provide the Guardian's contact number",
           },
         ]
       }
